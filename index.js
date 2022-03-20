@@ -444,6 +444,7 @@ module.exports = {
 
   signTypedData (privateKey, msgParams) {
     const message = TypedDataUtils.sign(msgParams.data, false)
+    privateKey = Buffer.from(privateKey, 'hex')
     const sig = ethUtil.ecsign(message, privateKey)
     return ethUtil.bufferToHex(this.concatSig(sig.v, sig.r, sig.s))
   },
@@ -528,5 +529,3 @@ function nacl_decodeHex (msgHex) {
   const msgBase64 = (Buffer.from(msgHex, 'hex')).toString('base64')
   return nacl.util.decodeBase64(msgBase64)
 }
-
-
